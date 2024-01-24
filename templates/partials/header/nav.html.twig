@@ -25,27 +25,31 @@
 					<a class="dropdown-item" href="#">Something else here</a>
 				</div>
 			</li>
-			{# <li class="nav-item">
-				<a class="nav-link disabled" href="#">Disabled</a>
-			</li> #}
-		</ul>
-		<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
-		{# On ajoute une condition pour afficher les boutons Déconnexion/Mon Compte uniquement si l'utilisateur est connecté #}
-		{% if app.user %}
 			<li class="nav-item">
-				<a class="nav-link" href="#">Mon compte</li>
+				<a class="nav-link disabled" href="#">Disabled</a>
+			</li>
+		</ul>
+
+		<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+		{# On ajoute une condition pour afficher les boutons Déconnexion/Mon Compte uniquement si l'utilisateur est connecté #}
+		 {% if app.user %}
+			<li class="nav-item">
+				<a class="nav-link" href="#"> Mon compte</a> </li>
 			
 			<li class="nav-item">
-				<a class="nav-link" href="{{path('app_logout')}}">Me déconnecter</li>
+				<a class="nav-link" href="{{path('app_logout')}}">Me déconnecter </a></li>
 				{% else %}
 		
 			<li class="nav-item">
-				<a class="nav-link" href="{{path('app_login')}}">Me connecter</li>
+				<a class="nav-link" href="{{path('app_login')}}">
+				Me connecter </a>
+				</li>
 			<li class="nav-item">
-				<a class="nav-link" href="{{path('app_register')}}">M'inscrire</li>
+				<a class="nav-link" href="{{path('app_register')}}">
+				M'inscrire </a>
+				</li> 
 		{% endif %}
 			
-		</ul>
+		</ul> 
 	</div>
 </nav>
