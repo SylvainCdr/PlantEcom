@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\CreatedAtTrait;
 use App\Repository\CouponsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CouponsRepository::class)]
 class Coupons
 {
+
+// On ajoute le trait CreatedAtTrait pour que la date soit automatiquement ajoutée
+    use CreatedAtTrait;
+
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -36,8 +42,7 @@ class Coupons
     #[ORM\Column]
     private ?bool $is_valid = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'coupons')]
     #[ORM\JoinColumn(nullable: false)]
@@ -49,6 +54,9 @@ class Coupons
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+         // On ajoute la propriété current_timestamp pour que la date soit automatiquement ajoutée 
+        // car sinon on a une erreur dans le formulaire d'inscription
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -128,17 +136,7 @@ class Coupons
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $created_at): static
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
+ 
 
     public function getCouponsTypes(): ?CouponsTypes
     {
