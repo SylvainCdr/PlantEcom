@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 #[Route('/categories', name: 'categories_')]
-class ProductsController extends AbstractController
+class CategoriesController extends AbstractController
 {
     #[Route('/{slug}', name: 'list')]
     public function list(Categories $category): Response
