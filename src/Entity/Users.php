@@ -50,6 +50,10 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 150)]
     private ?string $city = null;
 
+// On ajoute les propriétés pour la vérification de l'email, on les initialise à false
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $isVerified = false;
+
     // On ajoute la propriété current_timestamp pour que la date soit automatiquement ajoutée
 
     // #[ORM\Column]
@@ -123,6 +127,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
+
+    
     /**
      * @see PasswordAuthenticatedUserInterface
      */
@@ -203,6 +210,20 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCity(string $city): static
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+
+    // On ajoute les accesseurs pour la propriété isVerified dans le cadre de la vérification de l'email
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
