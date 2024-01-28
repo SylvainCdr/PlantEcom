@@ -54,6 +54,13 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private ?bool $isVerified = false;
 
+
+// On ajoute 
+
+#[ORM\Column(length: 100)]
+private ?string $resetToken = null;
+
+
     // On ajoute la propriété current_timestamp pour que la date soit automatiquement ajoutée
 
     // #[ORM\Column]
@@ -227,6 +234,22 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+public function getResettoken(): ?string
+{
+    return $this->resetToken;
+}
+
+public function setResettoken(?string $resetToken): static
+{
+    $this->resetToken = $resetToken;
+
+    return $this;
+}
+
+
+
+
 
     // public function getCreatedAt(): ?\DateTimeImmutable
     // {
