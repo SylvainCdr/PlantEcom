@@ -113,6 +113,7 @@ class RegistrationController extends AbstractController
     public function resendVerif(JWTService $jwt, SendMailService $mail, UsersRepository $usersRepository): Response
     {
         $user = $this->getUser();
+
         // On vérifie si l'utilisateur est connecté
         if (!$user) {
             $this->addFlash('danger', 'Vous devez être connecté pour accéder à cette page');
@@ -156,7 +157,7 @@ class RegistrationController extends AbstractController
             );
 
             $this->addFlash('success', 'Email de vérification renvoyé avec succès');
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_profile_index');
 
 
     }

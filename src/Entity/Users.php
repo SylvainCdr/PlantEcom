@@ -7,6 +7,7 @@ use App\Repository\UsersRepository;
 use App\Entity\Trait\CreatedAtTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use phpDocumentor\Reflection\Types\Nullable;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -55,7 +56,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $isVerified = false;
 
 
-// On ajoute 
+// On ajoute la propriété resetToken pour la réinitialisation du mot de passe
 
 #[ORM\Column(length: 100)]
 private ?string $resetToken = null;
@@ -84,6 +85,7 @@ private ?string $resetToken = null;
         // On ajoute la propriété current_timestamp pour que la date soit automatiquement ajoutée 
         // car sinon on a une erreur dans le formulaire d'inscription
         $this->created_at = new \DateTimeImmutable();
+       
     }
 
 
