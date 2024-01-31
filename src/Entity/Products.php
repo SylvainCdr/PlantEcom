@@ -49,7 +49,9 @@ class Products
     #[ORM\JoinColumn(nullable: false)]
     private ?Categories $categories = null;
 
-    #[ORM\OneToMany(mappedBy: 'products', targetEntity: Images::class, orphanRemoval: true)]
+
+//On ajoute la propriété cascade pour que les images soient automatiquement ajoutées
+    #[ORM\OneToMany(mappedBy: 'products', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $images;
 
     #[ORM\OneToMany(mappedBy: 'products', targetEntity: OrdersDetails::class)]

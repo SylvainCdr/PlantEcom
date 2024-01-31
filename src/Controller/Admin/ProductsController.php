@@ -2,14 +2,16 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Images;
 use App\Entity\Products;
 use App\Form\ProductsFormType;
+use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/produits', name: 'admin_products_')]
 class ProductsController extends AbstractController
@@ -24,7 +26,7 @@ class ProductsController extends AbstractController
 
 
     #[Route('/ajout', name: 'add')]
-    public function add(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    public function add(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, PictureService $pictureService): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -39,6 +41,21 @@ class ProductsController extends AbstractController
 
         // On vérifie si le formulaire est soumis et valide
         if ($productForm->isSubmitted() && $productForm->isValid()) {
+
+            //On récupère les images transmises
+            $images = $productForm->get('images')->getData();
+
+           foreach ($images as $image) {
+            // On définit le dossier de destination
+            $folder = 'products';
+
+            // On appelle le service d'ajout d'image
+            $fichier = $pictureService->add($image, $folder, 300, 300);
+           
+            $img = new Images();
+            $img->setName($fichier);
+            $product->addImage($img);
+           }
 
             // On génère le slug
             $slug = $slugger->slug($product->getName());
@@ -66,7 +83,7 @@ class ProductsController extends AbstractController
 
 
     #[Route('/edition/{id}', name: 'edit')]
-    public function edit(Products $product, Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    public function edit(Products $product, Request $request, EntityManagerInterface $em, SluggerInterface $slugger, PictureService $pictureService): Response
     {
 
         //On vérifie si l'utilisateur peut éditer avec le Voter
@@ -79,8 +96,23 @@ class ProductsController extends AbstractController
         // On traite la requête du formulaire
         $productForm->handleRequest($request);
 
-        // On vérifie si le formulaire est soumis et valide
+        // On vérifie si le formulaire est soumis ET valide
         if ($productForm->isSubmitted() && $productForm->isValid()) {
+
+              //On récupère les images transmises
+              $images = $productForm->get('images')->getData();
+
+              foreach ($images as $image) {
+               // On définit le dossier de destination
+               $folder = 'products';
+   
+               // On appelle le service d'ajout d'image
+               $fichier = $pictureService->add($image, $folder, 300, 300);
+              
+               $img = new Images();
+               $img->setName($fichier);
+               $product->addImage($img);
+              }
 
             // On génère le slug
             $slug = $slugger->slug($product->getName());
@@ -100,7 +132,8 @@ class ProductsController extends AbstractController
         return $this->render(
             'admin/products/edit.html.twig',
             [
-                'productForm' => $productForm->createView()
+                'productForm' => $productForm->createView(),
+                'product' => $product
             ]
         );
     }
