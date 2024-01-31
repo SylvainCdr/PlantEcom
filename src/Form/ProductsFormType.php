@@ -9,6 +9,7 @@ use App\Repository\CategoriesRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Positive;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
@@ -35,17 +36,21 @@ class ProductsFormType extends AbstractType
 
             ->add('description')
             ->add('price', options: [
-                'label' => 'Prix'
-            ])
+                'label' => 'Prix',
+                'constraints' => [
+                    new Positive(
+                        message: 'Le prix ne peut être négatif'
+                    )
+            ]])
 
             ->add('stock')
 
             ->add('images', FileType::class, [
                
+                'label' => 'false',
                 'multiple' => 'true',
                 'mapped' => 'false',
-                'required' => 'false',
-                'label' => 'false',
+                'required' => 'false'
             ]);
     }
 

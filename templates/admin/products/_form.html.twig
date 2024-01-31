@@ -11,7 +11,7 @@
 {% if app.request.attributes.get ('_route') == 'admin_products_edit'%}
 <h2>Images</h2>
 
-{% for image in product.getImages %}
+ {% for image in product.getImages %}
 <div>
 <img src="{{image.name}}" alt="Image" width="60%">
 <a href="" class="btn btn-danger" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
