@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Products;
+use App\Entity\Categories;
+use App\Repository\CategoriesRepository;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class ProductsFormType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('name', options: [
+                'label' => 'Nom du produit'
+            ])
+            ->add('categories', EntityType::class, [
+                'class' => Categories::class,
+                'choice_label' => 'name',
+                'label' => 'Catégorie',
+                'group_by' => 'parent.name',
+                'query_builder' => function (CategoriesRepository $cr)
+                {
+                    return $cr->createQueryBuilder('c')
+                        ->where('c.parent IS NOT NULL')
+                        ->orderBy('c.parent', 'ASC');
+                }
+            ])
+            ->add('description')
+            ->add('price', options: [
+                'label' => 'Prix'
+            ])
+            ->add('stock');
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Products::class,
+        ]);
+    }
+}

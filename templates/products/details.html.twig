@@ -58,7 +58,7 @@
                     {% if product.stock > 0  %}
 
               {# on créé un formulaire pour ajouter au panier avec possobilité de choisir la quantité #}
-              {# {{ path('cart_add', {'id': product.id}) }} #}
+           <a href="#" clas="btn btn-success">Ajouter au panier</a>
                     <form action="#" method="post">
                         <label for="quantity">Quantité</label>
                         <select name="quantity" id="quantity">
@@ -69,6 +69,7 @@
                         <button type="submit" class="btn btn-primary">Ajouter au panier</button>
                     {% else %}
                     <p class="text-danger">Temmporairement en rupture de stock</p>
+					<a href="#" class ></a>
                         
                     {% endif %}
 
