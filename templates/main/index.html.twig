@@ -20,13 +20,13 @@
 					</div>
 
 				{% else %}
-					<div class="col-4">
+					<div class="col-3">
 						<div class="card">
 							<div class="card-body">
 								<h3 class="card-title">
 									{{category.name}}
 								</h3>
-
+								{# TODO : Modifier la source des img sur url et local OU Image d'illustration #}
 								{% if category.products|length > 0 %}
 									{% set randomProductIndex = random(0, category.products|length - 1) %}
 									{% set randomProduct = category.products[randomProductIndex] %}
