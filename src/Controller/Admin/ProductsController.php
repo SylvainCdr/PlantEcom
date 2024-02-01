@@ -38,6 +38,7 @@ class ProductsController extends AbstractController
 
         // On traite la requête du formulaire
         $productForm->handleRequest($request);
+        
 
         // On vérifie si le formulaire est soumis et valide
         if ($productForm->isSubmitted() && $productForm->isValid()) {
@@ -50,7 +51,7 @@ class ProductsController extends AbstractController
             $folder = 'products';
 
             // On appelle le service d'ajout d'image
-            $fichier = $pictureService->add($image, $folder, 300, 300);
+            $fichier = $pictureService->add($image, $folder, 250, 250);
            
             $img = new Images();
             $img->setName($fichier);

@@ -27,13 +27,21 @@
 
 						</div>
 
+{% for image in product.getImages %}
+    <div class="carousel-item {{ loop.first ? 'active' : '' }}">
+        {% if image.name starts with 'http' %}
+            {# Image avec une URL distante #}
+            <img src="{{ image.name }}" class="d-block w-100" alt="{{ product.name }}">
+        {% else %}
+            {# Image stockée localement #}
+            <img src="{{ asset('assets/uploads/products/' ~ image.name) }}" class="d-block w-100" alt="{{ product.name }}">
+        {% endif %}
+    </div>
+{% endfor %}
 
-						{% for image in product.getImages %}
-							<div class="carousel-item {{ (loop.first) ==0 ? 'active' : '' }}">
-								<img src="{{ image.name }}" class="d-block w-100" alt="{{ product.name }}">
-							</div>
 
-						{% endfor %}
+
+
 
 					</div>
 					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
