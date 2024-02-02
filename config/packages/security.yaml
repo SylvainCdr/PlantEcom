@@ -39,7 +39,7 @@ security:
     access_control:
          - { path: ^/admin/utilisateurs, roles: ROLE_ADMIN }
          - { path: ^/admin/produits, roles: ROLE_ADMIN }
-         - { path: ^/admin, roles: ROLE_PROPDUCT_ADMIN }
+         - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/profil, roles: ROLE_USER }
 
     role_hierarchy:
