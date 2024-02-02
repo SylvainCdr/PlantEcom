@@ -1,0 +1,47 @@
+{{ form_start(productForm)}}
+
+
+{{ form_row(productForm.name) }}
+{{ form_row(productForm.categories) }}
+{{ form_row(productForm.description) }}
+{{ form_row(productForm.price) }}
+{{ form_row(productForm.stock) }}
+
+
+{# On affiche les images si on est en édition #}
+{% if app.request.attributes.get ('_route') == 'admin_products_edit'%}
+	<main class="container">
+	<div class="row">
+			<div class="col-12">
+
+				<h2>Images</h2>
+			
+				
+			{% for image in product.getImages  %}
+				{% if image.name starts with 'http' %}
+						
+							{# Image avec une URL distante #}
+							<img src="{{ image.name }}" class="d-flex w-50" alt="Image">
+							<a href=" {{path('admin_products_delete_image', {id: image.id}) }}" class="btn btn-danger" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
+
+						{% else %}
+							{# Image stockée localement #}
+							<img src="{{ asset('assets/uploads/products/' ~ image.name) }}" class="d-flex w-50" alt="Image" >
+							<a href=" {{path('admin_products_delete_image', {id: image.id}) }}" class="btn btn-danger" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
+
+						{% endif %}
+
+				{% endfor %}
+			{% endif %}
+				</div>	
+	</div>
+		</main>
+
+		{{ form_row(productForm.images) }}
+
+		<button type="submit" class="btn btn-primary">
+			{{ button_label|default('Ajouter') }}
+		</button>
+
+
+		{{ form_end(productForm)}}

@@ -9,6 +9,7 @@ use App\Entity\Trait\SlugTrait;
 use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
 class Products
@@ -23,16 +24,29 @@ class Products
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    // On ajoute la propriété Assert pour que le champ ne soit pas vide et avec des contraintes
+    #[Assert\NotBlank(message: 'Le nom du produit ne peut pas être vide')]
+    #[Assert\Length(
+        min: 3,
+        max: 180,
+        minMessage: 'Le nom du produit doit contenir au moins {{ limit }} caractères',
+        maxMessage: 'Le nom du produit doit contenir au maximum {{ limit }} caractères'
+    )]
     private ?string $name = null;
+    
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     #[ORM\Column]
+      // On ajoute la propriété Assert pour que le champ ne soit pas vide et avec des contraintes
+    #[Assert\Positive(message: 'Le prix ne peut pas être négatif')]
     private ?float $price = null;
 
     #[ORM\Column]
     private ?int $stock = null;
+    // On ajoute la propriété Assert pour que le champ ne soit pas vide et avec des contraintes
+   
 
 // On ajoute la propriété current_timestamp pour que la date soit automatiquement ajoutée
 
@@ -49,7 +63,9 @@ class Products
     #[ORM\JoinColumn(nullable: false)]
     private ?Categories $categories = null;
 
-    #[ORM\OneToMany(mappedBy: 'products', targetEntity: Images::class, orphanRemoval: true)]
+
+//On ajoute la propriété cascade pour que les images soient automatiquement ajoutées
+    #[ORM\OneToMany(mappedBy: 'products', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $images;
 
     #[ORM\OneToMany(mappedBy: 'products', targetEntity: OrdersDetails::class)]

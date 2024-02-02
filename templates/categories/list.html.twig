@@ -15,15 +15,38 @@
 	<main class="container">
 		<section class="row">
 			<div class="col-12">
-				<h1>Liste des produits de la catégorie
+				<h1> Découvrez nos
 					{{ category.name }}
 				</h1>
 			</div>
 
 			{% for product in products %}
 
-			<div class="col-6 mb-4">
+			<div class="col-4 mb-4">
     <article class="card h-100">
+
+    {# {% if product.getImages is not empty %}
+    <img src="{{ product.getImages.first().getName }} | " class="card-img-top" alt="{{ product.name }}">
+    
+{% endif %} #}
+
+
+
+{% for image in product.getImages %}
+    {% if loop.first %}
+        {% if image.name starts with 'http' %}
+            {# Image avec une URL distante #}
+            <img src="{{ image.name }}" class="d-block w-100" alt="{{ product.name }}">
+        {% else %}
+            {# Image stockée localement #}
+            <img src="{{ asset('assets/uploads/products/' ~ image.name) }}" class="d-block w-100" alt="{{ product.name }}">
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+   
+    
+
         <div class="card-body">
             <h2 class="card-title">
                 {{product.name}}
