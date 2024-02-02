@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Positive;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
 class ProductsFormType extends AbstractType
 {
@@ -36,14 +37,16 @@ class ProductsFormType extends AbstractType
                 }
             ])
             ->add('description')
-            ->add('price', options: [
-                'label' => 'Prix',
+            ->add('price', MoneyType::class,  options: [
+                'label' => 'Prix',                 
+            ])
+            ->add('stock', options: [
+                'label' => 'Stock',
                 'constraints' => [
                     new Positive(
-                        message: 'Le prix ne peut être négatif'
+                        message: 'Le stock ne peut être négatif'
                     )
             ]])
-            ->add('stock')
             ->add('images', FileType::class, [
                 'label' => false,
                 'multiple' => true,
@@ -52,7 +55,7 @@ class ProductsFormType extends AbstractType
                 'constraints' => [
                     new All(
                         new Image([
-                            'maxWidth' => 3000,
+                            'maxWidth' => 1920,
                             'maxWidthMessage' => 'L\'image doit faire {{ max_width }} pixels de large au maximum'
                         ])
                     )
