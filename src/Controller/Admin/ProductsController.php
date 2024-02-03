@@ -55,7 +55,7 @@ $products = $productRepository->findAll();
             $folder = 'products';
 
             // On appelle le service d'ajout d'image
-            $fichier = $pictureService->add($image, $folder, 250, 250);
+            $fichier = $pictureService->add($image, $folder, 300, 300);
            
             $img = new Images();
             $img->setName($fichier);

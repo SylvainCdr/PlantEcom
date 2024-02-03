@@ -28,12 +28,24 @@
 								</h3>
 								{# TODO : Modifier la source des img sur url et local OU Image d'illustration #}
 								{% if category.products|length > 0 %}
-									{% set randomProductIndex = random(0, category.products|length - 1) %}
-									{% set randomProduct = category.products[randomProductIndex] %}
-									{% if randomProduct.getImages|length > 0 %}
-										<img src="{{ randomProduct.getImages.first().getName }}" class="card-img-top" alt="{{ category.name }}">
-									{% endif %}
-								{% endif %}
+    {% set randomProductIndex = random(0, category.products|length - 1) %}
+    {% set randomProduct = category.products[randomProductIndex] %}
+    {% if randomProduct.getImages|length > 0 %}
+        {% set randomImage = randomProduct.getImages.first() %}
+        <img src="{{ asset('assets/uploads/products/mini/300x300-' ~ randomImage.name) }}" class="card-img-top" alt="{{ category.name }}">
+    {% endif %}
+{% endif %}
+
+
+
+								{# {% for produit in produits %}
+							<tr>
+								<td>{{ produit.id }}</td>
+								<td>
+									{% if produit.getImages|length > 0 %}
+    {% set firstImage = produit.getImages.first() %}
+    <img src="{{ asset('assets/uploads/products/mini/300x300-' ~ firstImage.name) }}" width="60%">
+{% endif %} #}
 
 								<a class="btn btn-primary" href="{{path('categories_list', {slug: category.slug }) }}" role="button">Voir les produits</a>
 							</div>
