@@ -2,10 +2,15 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Categories;
+use App\Form\CategoriesFormType;
 use App\Repository\CategoriesRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/admin/categories', name: 'admin_categories_')]
 class CategoriesController extends AbstractController
@@ -17,4 +22,42 @@ class CategoriesController extends AbstractController
 
         return $this->render('admin/categories/index.html.twig', compact('categories'));
     }
+
+    #[Route('/ajout', name: 'add')]
+    public function add( Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    {
+
+        $category = new Categories();
+
+        $categoryForm = $this->createForm(CategoriesFormType::class, $category);
+
+        $categoryForm->handleRequest($request);
+
+        if ($categoryForm->isSubmitted() && $categoryForm->isValid()) {
+            $slug = $slugger->slug($category->getName());
+            $category->setSlug($slug);
+
+            $em->persist($category);
+            $em->flush();
+
+
+            $this->addFlash('success', 'La catégorie a bien été ajoutée');
+            return $this->redirectToRoute('admin_categories_index');
+        }
+
+
+        return $this->render('admin/categories/add.html.twig',
+            [
+                'categoryForm' => $categoryForm->createView()
+            ]
+        );
+    }
+
+    #[Route('/edition/{id}', name: 'edit')]
+    public function edit(): Response
+    {
+        return $this->render('admin/categories/edit.html.twig');
+    }
+
+
 }

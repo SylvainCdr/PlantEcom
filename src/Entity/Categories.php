@@ -61,7 +61,7 @@ class Categories
 
 
     // On ajoute un getter et un setter pour l'ordre d'affichage des catégories
-    public function getCateforyOrder(): ?int
+    public function getCategoryOrder(): ?int
     {
         return $this->categoryOrder;
     }

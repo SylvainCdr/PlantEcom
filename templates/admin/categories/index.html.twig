@@ -16,7 +16,8 @@
     <th>Nom</th>
     <th>Parent</th>
     <th>Slug</th>
-    {# <th>Ordre</th> #}
+    <th>Ordre</th>
+    <th>Actions </th>
     </tr>
     </thead>
     <tbody>
@@ -32,7 +33,8 @@
     </td>
 
     <td>{{ categorie.slug }}</td>
-    {# <td>{{ categorie.categoryOrder }}</td> #}
+    <td>{{ categorie.categoryOrder }}</td>
+    {# <td><a href=" {{ path('admin_admin_edit', {id:category.id}) }}" class="btn btn-success" >Modifier</a></td> #}
     </tr>
     {% endfor %}
     </table>
