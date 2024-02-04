@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Products;
+use App\Repository\ProductsRepository;
+use App\Repository\CategoriesRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,11 +12,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/produits', name: 'app_products_')]
 class ProductsController extends AbstractController
 {
-    #[Route('/', name: 'index')]
-    public function index(): Response
+    #[Route('/plantes', name: 'plants')]
+    public function plants(CategoriesRepository $categoriesRepository, ProductsRepository $productsRepository): Response
     {
-        return $this->render('products/index.html.twig', [
-            'controller_name' => 'Liste des produits',
+        return $this->render('products/plants.html.twig', [
+            'categories' => $categoriesRepository->findBy(
+                [],
+                ['categoryOrder' => 'ASC']
+            ),
+            'produits' => $productsRepository->findAll(),
+
+        ]);
+    }
+
+    #[Route('/accessoires', name: 'accessories')]
+    public function accessories(CategoriesRepository $categoriesRepository, ProductsRepository $productsRepository): Response
+    {
+        return $this->render('products/accessories.html.twig', [
+            'categories' => $categoriesRepository->findBy(
+                [],
+                ['categoryOrder' => 'ASC']
+            ),
+            'produits' => $productsRepository->findAll(),
+
         ]);
     }
 

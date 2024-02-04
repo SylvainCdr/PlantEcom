@@ -2,60 +2,67 @@
 
 
 <div class="header">
-    <nav className="header__nav">
-        <ul >
-         <li class="nav-item">
-				<a class="nav-link" href="{{'/'}}"> Accueil</a> </li>
-          <li>
-           Produits
-          </li>
-          {# <li>
-            Panier
-          </li> #}
-         
-          <span>
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              <img
-                src=""
-                alt=""
-              />
-            </a>
-           
-          </span>
-        </ul>
-				<ul >
-		{# On ajoute une condition pour afficher les boutons Déconnexion/Mon Compte uniquement si l'utilisateur est connecté #}
-		 {% if app.user %}
+	<nav classname="header__nav">
+		<ul>
+			<li class="nav-item">
+				<a class="nav-link" href="{{'/'}}">
+					Accueil</a>
+			</li>
+			<li>
+				<a class="nav-link" href="{{ path('app_products_plants') }}">
+					Plantes</a>
+			</li>
+			<li>
 
-     {% if is_granted('ROLE_ADMIN') %}
-     	<li class="nav-item">
-				<a class="nav-link" href=" {{ path('admin_index') }}"> Administration</a> </li>
-      
-     {% endif %}
-			<li class="nav-item">
-				<a class="nav-link" href="#"> Mon compte</a> </li>
-			
-			<li class="nav-item">
-				<a class="nav-link" href="{{path('app_logout')}}">Me déconnecter </a></li>
-				{% else %}
-		
-			<li class="nav-item">
-				<a class="nav-link" href="{{path('app_login')}}">
-				Me connecter </a>
+				<a class="nav-link" href="{{ path('app_products_accessories') }}">
+					Matériel & Accessoires</a>
+			</li>
+
+
+			<span>
+				<a href="#" target="_blank" rel="noopener noreferrer">
+					<img src="" alt=""/>
+				</a>
+
+			</span>
+		</ul>
+		<ul>
+			{# On ajoute une condition pour afficher les boutons Déconnexion/Mon Compte uniquement si l'utilisateur est connecté #}
+			{% if app.user %}
+
+				{% if is_granted('ROLE_ADMIN') %}
+					<li class="nav-item">
+						<a class="nav-link" href=" {{ path('admin_index') }}">
+							Administration</a>
+					</li>
+
+				{% endif %}
+				<li class="nav-item">
+					<a class="nav-link" href="#">
+						Mon compte</a>
 				</li>
-			<li class="nav-item">
-				<a class="nav-link" href="{{path('app_register')}}">
-				M'inscrire </a>
-				</li> 
 
-				
-		{% endif %}
-			
-		</ul> 
-            <div className="header__burgerMenu">
+				<li class="nav-item">
+					<a class="nav-link" href="{{path('app_logout')}}">Me déconnecter
+					</a>
+				</li>
+			{% else %}
 
-            </div>
-        </nav>
-		</div>
-     
+				<li class="nav-item">
+					<a class="nav-link" href="{{path('app_login')}}">
+						Me connecter
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{path('app_register')}}">
+						M'inscrire
+					</a>
+				</li>
 
+
+			{% endif %}
+
+		</ul>
+		<div classname="header__burgerMenu"></div>
+	</nav>
+</div>
