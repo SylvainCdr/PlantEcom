@@ -53,10 +53,38 @@ class CategoriesController extends AbstractController
         );
     }
 
-    #[Route('/edition/{id}', name: 'edit')]
-    public function edit(): Response
+    #[Route('/modification/{id}', name: 'edit')]
+    public function edit(Categories $category, Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
-        return $this->render('admin/categories/edit.html.twig');
+        $categoryForm = $this->createForm(CategoriesFormType::class, $category);
+
+        $categoryForm->handleRequest($request);
+
+        if ($categoryForm->isSubmitted() && $categoryForm->isValid()) {
+            $slug = $slugger->slug($category->getName());
+            $category->setSlug($slug);
+
+            $em->flush();
+
+            $this->addFlash('success', 'La catégorie a bien été modifiée');
+            return $this->redirectToRoute('admin_categories_index');
+        }
+
+        return $this->render('admin/categories/edit.html.twig',
+            [
+                'categoryForm' => $categoryForm->createView()
+            ]
+        );
+    }
+
+    #[Route('/suppression/{id}', name: 'delete')]
+    public function delete(Categories $category, EntityManagerInterface $em): Response
+    {
+        $em->remove($category);
+        $em->flush();
+
+        $this->addFlash('success', 'La catégorie a bien été supprimée');
+        return $this->redirectToRoute('admin_categories_index');
     }
 
 

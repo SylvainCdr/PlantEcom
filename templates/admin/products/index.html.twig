@@ -38,7 +38,10 @@
 								<td>{{ produit.price }}</td>
 								<td>{{ produit.stock }}</td>
 								<td>{{ produit.categories.name }}</td>
-								<td><a href=" {{ path('admin_products_edit', {id:produit.id}) }}" class="btn btn-success" >Modifier</a></td>
+								<td>
+								<a href=" {{ path('admin_products_edit', {id:produit.id}) }}" class="btn btn-success" >Modifier</a>
+								<a href=" {{ path('admin_products_delete', {id:produit.id}) }}" class="btn btn-danger" >Supprimer</a>
+								</td>
 
 							</tr>
 						{% endfor %}

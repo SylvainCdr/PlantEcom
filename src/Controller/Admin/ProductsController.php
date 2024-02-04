@@ -145,6 +145,30 @@ $products = $productRepository->findAll();
 
 
 
+
+    #[Route('/suppression/{id}', name: 'delete')]
+    public function delete(Products $product, EntityManagerInterface $em): Response
+    {
+
+        //On vérifie si l'utilisateur peut supprimer avec le Voter
+        // $this->denyAccessUnlessGranted('PRODUCT_DELETE', $product);
+        // return $this->render('admin/products/index.html.twig');
+
+       
+        $em->remove($product);
+        $em->flush();
+
+        $this->addFlash('success', 'Le produit a bien été supprimé');
+
+        return $this->redirectToRoute('admin_products_index');
+    }
+
+
+
+
+
+
+
     #[Route('/suppression/image/{id}', name: 'delete_image', methods: ['DELETE'])]
     public function deleteImage(Images $image, Request $request, EntityManagerInterface $em, PictureService $pictureService): JsonResponse
     {

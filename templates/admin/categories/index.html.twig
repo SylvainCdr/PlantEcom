@@ -34,7 +34,10 @@
 
     <td>{{ categorie.slug }}</td>
     <td>{{ categorie.categoryOrder }}</td>
-    {# <td><a href=" {{ path('admin_admin_edit', {id:category.id}) }}" class="btn btn-success" >Modifier</a></td> #}
+    <td>
+    <a href=" {{ path('admin_categories_edit', {id:categorie.id}) }}" class="btn btn-success" >Modifier</a>
+    <a href=" {{ path('admin_categories_delete', {id:categorie.id}) }}" class="btn btn-danger" >Supprimer</a>
+    </td>
     </tr>
     {% endfor %}
     </table>
