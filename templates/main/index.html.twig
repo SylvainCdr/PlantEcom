@@ -12,20 +12,21 @@
 			<div class="col-12">
 				<h1>PlantEcom</h1>
 				<p>Bienvenue sur notre E-Shop</p>
+				<a href="{{ path('app_products_allplants')}}" class="btn btn-primary"> Voir toutes les plantes </a>
 			</div>
 
 
-			<div class="col-6">
+			<div class="col-4">
 				<h2>Découvrez nos Philodendron</h2>
-				<div id="carouselPhilodendron" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
+				<div id="carouselPhilodendron" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
 					<div class="carousel-inner">
 						<div class="carousel-indicators">
-							{% for key, produit in produits|filter(product => product.categories.slug == 'philodendron')|slice(0, 8) %}
+							{% for key, produit in produits|filter(product => product.categories.slug == 'philodendron')|slice(0, 6) %}
 								<button type="button" data-bs-target="#carouselPhilodendron" data-bs-slide-to="{{ key }}" {{ (loop.first) ? 'class="active" aria-current="true"' : '' }} aria-label="Slide {{ key }}"></button>
 							{% endfor %}
 						</div>
 
-						{% for key, produit in produits|filter(product => product.categories.slug == 'philodendron')|slice(0, 8) %}
+						{% for key, produit in produits|filter(product => product.categories.slug == 'philodendron')|slice(0, 6) %}
 							<div class="carousel-item {{ loop.first ? 'active' : '' }}">
 								{% if produit.getImages|length > 0 %}
 									{% set firstImage = produit.getImages.first() %}
@@ -55,17 +56,17 @@
 			</div>
 
 
-			<div class="col-6">
-				<h2>Découvrez nos Syngonium</h2>
-				<div id="carouselSyngonium" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
+	<div class="col-4">
+				<h2>Découvrez nos Monstera</h2>
+				<div id="carouselMonstera" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
 					<div class="carousel-inner">
 						<div class="carousel-indicators">
-							{% for key, produit in produits|filter(product => product.categories.slug == 'syngonium')|slice(0, 8) %}
-								<button type="button" data-bs-target="#carouselSyngonium" data-bs-slide-to="{{ key }}" {{ (loop.first) ? 'class="active" aria-current="true"' : '' }} aria-label="Slide {{ key }}"></button>
+							{% for key, produit in produits|filter(product => product.categories.slug == 'monstera')|slice(0, 6) %}
+								<button type="button" data-bs-target="#carouselMonstera" data-bs-slide-to="{{ key }}" {{ (loop.first) ? 'class="active" aria-current="true"' : '' }} aria-label="Slide {{ key }}"></button>
 							{% endfor %}
 						</div>
 
-						{% for key, produit in produits|filter(product => product.categories.slug == 'syngonium')|slice(0, 8) %}
+						{% for key, produit in produits|filter(product => product.categories.slug == 'monstera')|slice(0, 6) %}
 							<div class="carousel-item {{ loop.first ? 'active' : '' }}">
 								{% if produit.getImages|length > 0 %}
 									{% set firstImage = produit.getImages.first() %}
@@ -94,6 +95,49 @@
 				</div>
 			</div>
 
+
+
+			<div class="col-4">
+				<h2>Découvrez nos Syngonium</h2>
+				<div id="carouselSyngonium" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+					<div class="carousel-inner">
+						<div class="carousel-indicators">
+							{% for key, produit in produits|filter(product => product.categories.slug == 'syngonium')|slice(0, 6) %}
+								<button type="button" data-bs-target="#carouselSyngonium" data-bs-slide-to="{{ key }}" {{ (loop.first) ? 'class="active" aria-current="true"' : '' }} aria-label="Slide {{ key }}"></button>
+							{% endfor %}
+						</div>
+
+						{% for key, produit in produits|filter(product => product.categories.slug == 'syngonium')|slice(0, 6) %}
+							<div class="carousel-item {{ loop.first ? 'active' : '' }}">
+								{% if produit.getImages|length > 0 %}
+									{% set firstImage = produit.getImages.first() %}
+									<a href="{{ path('app_products_details', {slug: produit.slug}) }}">
+										<img src="{{ asset('assets/uploads/products/' ~ firstImage.name) }}" class="d-block w-100" alt="{{ produit.name }}">
+										<div class="carousel-caption d-none d-md-block">
+											<h5>{{ produit.name }}</h5>
+											<p>{{ produit.price }}
+												€</p>
+										</div>
+									</a>
+								{% endif %}
+							</div>
+						{% endfor %}
+					</div>
+
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselSyngonium" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselSyngonium" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+			</div>
+
+
+		
 
 			{% for category in categories %}
 

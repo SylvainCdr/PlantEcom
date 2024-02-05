@@ -15,7 +15,7 @@
 			<li>
 
 				<a class="nav-link" href="{{ path('app_products_accessories') }}">
-					Matériel & Accessoires</a>
+					Produits</a>
 			</li>
 
 
@@ -26,43 +26,48 @@
 
 			</span>
 		</ul>
-		<ul>
-			{# On ajoute une condition pour afficher les boutons Déconnexion/Mon Compte uniquement si l'utilisateur est connecté #}
-			{% if app.user %}
+<ul>
+    {# On ajoute une condition pour afficher les boutons Déconnexion/Mon Compte uniquement si l'utilisateur est connecté #}
+    {% if app.user %}
 
-				{% if is_granted('ROLE_ADMIN') %}
-					<li class="nav-item">
-						<a class="nav-link" href=" {{ path('admin_index') }}">
-							Administration</a>
-					</li>
-
-				{% endif %}
-				<li class="nav-item">
-					<a class="nav-link" href="#">
-						Mon compte</a>
-				</li>
-
-				<li class="nav-item">
-					<a class="nav-link" href="{{path('app_logout')}}">Me déconnecter
-					</a>
-				</li>
-			{% else %}
-
-				<li class="nav-item">
-					<a class="nav-link" href="{{path('app_login')}}">
-						Me connecter
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{path('app_register')}}">
-						M'inscrire
-					</a>
-				</li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin_index') }}">
+                    Administration</a>
+            </li>
+{% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    Mon compte</a>
+            </li>
 
 
-			{% endif %}
+        {% endif %}
 
-		</ul>
+        {% if is_granted('ROLE_USER') %}
+        {% endif %}
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_logout') }}">Me déconnecter</a>
+        </li>
+
+    {% else %}
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_login') }}">
+                Me connecter
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_register') }}">
+                M'inscrire
+            </a>
+        </li>
+
+    {% endif %}
+</ul>
+
+
 		<div classname="header__burgerMenu"></div>
 	</nav>
 </div>

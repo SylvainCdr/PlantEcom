@@ -25,6 +25,18 @@ class ProductsController extends AbstractController
         ]);
     }
 
+#[Route('/all_plantes', name: 'allplants')]
+public function allPlants(CategoriesRepository $categoriesRepository, ProductsRepository $productsRepository): Response
+{
+   return $this->render('products/allplants.html.twig', [
+       'category' => $categoriesRepository->findAll(
+       ),
+       'plants' => $productsRepository->findAll(),
+
+   ]);
+}
+
+
     #[Route('/accessoires', name: 'accessories')]
     public function accessories(CategoriesRepository $categoriesRepository, ProductsRepository $productsRepository): Response
     {
