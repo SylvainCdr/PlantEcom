@@ -29,9 +29,14 @@ class ProductsController extends AbstractController
 public function allPlants(CategoriesRepository $categoriesRepository, ProductsRepository $productsRepository): Response
 {
    return $this->render('products/allplants.html.twig', [
-       'category' => $categoriesRepository->findAll(
-       ),
-       'plants' => $productsRepository->findAll(),
+
+    // on appel la méthode findPlants() de notre repository pour récupérer les produits des catégories affilié à la catégorie parente plante
+    'plants' => $productsRepository->findPlants(),
+    'categories' => $categoriesRepository->findBy(
+        [],
+        ['categoryOrder' => 'ASC']
+    ),
+
 
    ]);
 }

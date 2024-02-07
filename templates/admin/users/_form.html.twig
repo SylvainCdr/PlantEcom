@@ -1,0 +1,14 @@
+{{ form_start(userForm)}}
+
+
+{{ form_row(userForm.lastname) }}
+{{ form_row(userForm.firstname) }}
+{{ form_row(userForm.email) }}
+
+
+	<button type="submit" class="btn btn-primary">
+			{{ button_label|default('Modifier') }}
+		</button>
+
+
+		{{ form_end(userForm)}}

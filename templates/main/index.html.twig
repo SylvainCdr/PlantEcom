@@ -83,12 +83,12 @@
 						{% endfor %}
 					</div>
 
-					<button class="carousel-control-prev" type="button" data-bs-target="#carouselSyngonium" data-bs-slide="prev">
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselMonstera" data-bs-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 						<span class="visually-hidden">Previous</span>
 					</button>
 
-					<button class="carousel-control-next" type="button" data-bs-target="#carouselSyngonium" data-bs-slide="next">
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselMonstera" data-bs-slide="next">
 						<span class="carousel-control-next-icon" aria-hidden="true"></span>
 						<span class="visually-hidden">Next</span>
 					</button>
@@ -139,7 +139,7 @@
 
 		
 
-			{% for category in categories %}
+			{# {% for category in categories %}
 
 				{% if category.parent == null %}
 					<div class="col-12">
@@ -155,7 +155,7 @@
 								<h3 class="card-title">
 									{{category.name}}
 								</h3>
-								{# TODO : Modifier la source des img sur url et local OU Image d'illustration #}
+								
 								{% if category.products|length > 0 %}
 									{% set randomProductIndex = random(0, category.products|length - 1) %}
 									{% set randomProduct = category.products[randomProductIndex] %}
@@ -166,15 +166,6 @@
 								{% endif %}
 
 
-								{# {% for produit in produits %}
-																							<tr>
-																								<td>{{ produit.id }}</td>
-																								<td>
-																									{% if produit.getImages|length > 0 %}
-																    {% set firstImage = produit.getImages.first() %}
-																    <img src="{{ asset('assets/uploads/products/mini/300x300-' ~ firstImage.name) }}" width="60%">
-																{% endif %} #}
-
 								<a class="btn btn-primary" href="{{path('categories_list', {slug: category.slug }) }}" role="button">Voir les produits</a>
 							</div>
 						</div>
@@ -182,7 +173,7 @@
 					</div>
 				{% endif %}
 
-			{% endfor %}
+			{% endfor %} #}
 
 
 		</section>

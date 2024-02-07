@@ -21,7 +21,18 @@ class ProductsRepository extends ServiceEntityRepository
         parent::__construct($registry, Products::class);
     }
 
-  
+    
+
+    // on crée une méthode pour récupérer les produits des catégories affilié à la catégorie parente plante
+
+    public function findPlants()
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.categories', 'c')
+            ->andWhere('c.parent = 39')
+            ->getQuery()
+            ->getResult();
+    }
 
 //    /**
 //     * @return Products[] Returns an array of Products objects

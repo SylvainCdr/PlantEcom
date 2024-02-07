@@ -8,24 +8,39 @@
 
 	<main class="container">
 		<section class="row">
+			<div class="col-12">
+				<h1>Découvrez toutes nos plantes</h1>
+			</div>
 
-			<h1>Liste des plantes</h1>
 
-		{% for plant in plants %}
-    <div class="col-2">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="card-title">{{ plant.name }}</h3>
-                <a href="#"></a>
-                {% if plant.getImages|length > 0 %}
-                    {% set image = plant.getImages.first() %}
-                    <img src="{{ asset('assets/uploads/products/' ~ image.name) }}" alt="{{ plant.name }}" class="img-fluid">
-                {% endif %}
-            </div>
-        </div>
-    </div>
-{% endfor %}
+			{% for plant in plants %}
+				<div class="col-3 mb-4">
+					<article class="card h-100">
 
+
+						{% if plant.getImages|length > 0 %}
+							{% set image = plant.getImages.first() %}
+							<img src="{{ asset('assets/uploads/products/mini/300x300-' ~ image.name) }}" alt="{{ plant.name }}" class="d-block w-100">
+						{% endif %}
+
+						<div class="card-body">
+							<h2 class="card-title">
+								{{plant.name}}
+							</h2>
+							<p class="card-text">
+								{{plant.price}}
+								€
+							</p>
+							<p class="card-text">
+								{{ plant.description|slice(0, 100) ~ '...'}}
+							</p>
+							<a href="{{ path('app_products_details', {slug: plant.slug}) }}" class="btn btn-primary">
+								Voir les détails</a>
+						</div>
+					</article>
+				</div>
+
+			{% endfor %}
 
 
 		</section>

@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 
-
 {% block title %}
 	{{ category.name }}
 {% endblock %}
@@ -9,65 +8,49 @@
 
 {% block body %}
 
-<link rel="stylesheet" href={{ asset('assets/css/list.css') }}>
+	<link
+	rel="stylesheet" href={{ asset('assets/css/list.css') }}>
 	{# {{ dump() }} #}
 
 	<main class="container">
 		<section class="row">
 			<div class="col-12">
-				<h1> Découvrez nos
+				<h1>
+					Découvrez nos
 					{{ category.name }}
 				</h1>
 			</div>
 
 			{% for product in products %}
 
-			<div class="col-4 mb-4">
-    <article class="card h-100">
+				<div class="col-4 mb-4">
+					<article class="card h-100">
 
-    {# {% if product.getImages is not empty %}
-    <img src="{{ product.getImages.first().getName }} | " class="card-img-top" alt="{{ product.name }}">
-    
-{% endif %} #}
-
-
-
-{% for image in product.getImages %}
-    {% if loop.first %}
-        {% if image.name starts with 'http' %}
-            {# Image avec une URL distante #}
-            <img src="{{ image.name }}" class="d-block w-100" alt="{{ product.name }}">
-        {% else %}
-            {# Image stockée localement #}
-            <img src="{{ asset('assets/uploads/products/' ~ image.name) }}" class="d-block w-100" alt="{{ product.name }}">
-        {% endif %}
-    {% endif %}
-{% endfor %}
+						{% for image in product.getImages %}
+							{% if loop.first %}
+								<img src="{{ asset('assets/uploads/products/' ~ image.name) }}" class="d-block w-100" alt="{{ product.name }}">
+							{% endif %}
+						{% endfor %}
 
 
-
-   
-    
-
-        <div class="card-body">
-            <h2 class="card-title">
-                {{product.name}}
-            </h2>
-            <img src="#" alt="" class="img-fluid">
-
-            <p class="card-text">
-                {{product.price}} €
-            </p>
-            <p class="card-text">
-                {{product.description}}
-            </p>
-            <a href="{{ path('app_products_details', {slug: product.slug}) }}" class="btn btn-primary">
-                Voir les détails
-            </a>
-        </div>
-    </article>
-</div>
-
+						<div class="card-body">
+							<h2 class="card-title">
+								{{product.name}}
+							</h2>
+							
+							<p class="card-text">
+								{{product.price}}
+								€
+							</p>
+							<p class="card-text">
+								{{ product.description|slice(0, 150) ~ '...'}}
+							</p>
+							<a href="{{ path('app_products_details', {slug: product.slug}) }}" class="btn btn-primary">
+								Voir les détails
+							</a>
+						</div>
+					</article>
+				</div>
 
 
 			{% endfor %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Repository\UsersRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,9 +13,13 @@ class MainController extends AbstractController
 {
 
     #[Route('/', name: 'index')]
-    public function index(): Response
+    public function users(UsersRepository $users): Response
     {
-        return $this->render('admin/index.html.twig');
+        $users = $users->findBy([], ['created_at' => 'DESC']);
+
+        return $this->render('admin/index.html.twig', [
+            'users' => $users,
+        ]);
     }
    
 }

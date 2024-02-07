@@ -30,7 +30,7 @@
 								<td>
 									{% if produit.getImages|length > 0 %}
     {% set firstImage = produit.getImages.first() %}
-    <img src="{{ asset('assets/uploads/products/mini/300x300-' ~ firstImage.name) }}" width="60%">
+    <img src="{{ asset('assets/uploads/products/mini/300x300-' ~ firstImage.name) }}" width="50%">
 {% endif %}
 
 								<td>{{ produit.name }}</td>

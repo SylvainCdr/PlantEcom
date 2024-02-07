@@ -15,12 +15,22 @@ class UsersController extends AbstractController
     public function index(UsersRepository $usersRepository): Response
     {
 
-        $users = $usersRepository->findBy([], ['firstname' => 'ASC']);
+        $users = $usersRepository->findBy([], ['lastname' => 'ASC']);
 
 
         return $this->render('admin/users/index.html.twig', [
             'users' => $users,
 
+        ]);
+    }
+
+    #[Route('edition/{id}', name: 'edit', methods: ['GET'])]
+    public function edit(UsersRepository $usersRepository, $id): Response
+    {
+        $user = $usersRepository->find($id);
+
+        return $this->render('admin/users/edit.html.twig', [
+            'user' => $user,
         ]);
     }
 }
