@@ -7,7 +7,6 @@ PlantEcom est une application web développée avec le framework Symfony. Il s'a
 ![alt text](<docs/Capture d'écran 2024-01-04 142916.png>) ![alt text](<docs/Capture d'écran 2024-04-05 124948.png>)
 ![alt text](<docs/Capture d'écran 2024-04-05 122436.png>)
 ![alt text](<docs/Capture d'écran 2024-04-05 122519.png>)
-![alt text](<docs/Capture d'écran 2024-04-05 122519.png>)
 ![alt text](<docs/Capture d'écran 2024-04-05 124704.png>)
 ![alt text](<docs/Capture d'écran 2024-04-05 122608.png>)
 ![alt text](<docs/Capture d'écran 2024-04-05 122642.png>)
