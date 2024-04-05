@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Liste des plantes {% endblock %}
+
+{% block body %}
+
+<main class="container">
+		<section class="row">
+
+        <div class="col-12"> Voir toutes les plantes 
+        				<a href="{{ path('app_products_allplants')}}" class="btn btn-primary"> Voir toutes les plantes </a>
+</div>
+
+    <h1>Liste des plantes par espèces</h1>
+
+
+    	{% for category in categories %}
+    {% if category.parent is not null and category.parent.slug == 'plante' %}
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        {{ category.name }}
+                    </h3>
+                    {% if category.products|length > 0 %}
+                        {% set randomProductIndex = random(0, category.products|length - 1) %}
+                        {% set randomProduct = category.products[randomProductIndex] %}
+                        {% if randomProduct.getImages|length > 0 %}
+                            {% set randomImage = randomProduct.getImages.first() %}
+                            <img src="{{ asset('assets/uploads/products/mini/300x300-' ~ randomImage.name) }}" class="card-img-top" alt="{{ category.name }}">
+                        {% endif %}
+                    {% endif %}
+                    <a class="btn btn-primary" href="{{ path('categories_list', { slug: category.slug }) }}" role="button">Voir les produits</a>
+                </div>
+            </div>
+            <a href="#"></a>
+        </div>
+    {% endif %}
+{% endfor %}
+
+
+    
+
+
+</section>
+</main>
+{% endblock %}

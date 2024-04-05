@@ -1,0 +1,89 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Détails de
+	{{product.name}}
+{% endblock %}
+
+{% block body %}
+
+	<main class="container">
+		<section class="row">
+			<div class="col-12">
+				<h1>
+					{{product.name}}</h1>
+			</div>
+			<div class="col-6">
+
+				<div id="carouselExample" class="carousel slide">
+					<div class="carousel-inner">
+
+						<div class="carousel-indicators">
+
+							{% for iteration in 1..product.images|length %}
+								<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ iteration - 1}}" {{ (loop.first) ? 'class="active" aria-current="true"' : '' }} aria-label="Slide {{ iteration }}"></button>
+
+							{% endfor %}
+
+						</div>
+
+						{% for image in product.getImages %}
+							<div
+								class="carousel-item {{ loop.first ? 'active' : '' }}">
+
+								{# Image stockée localement #}
+								<img src="{{ asset('assets/uploads/products/' ~ image.name) }}" class="d-block w-100" alt="{{ product.name }}">
+
+							</div>
+						{% endfor %}
+
+
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+			</div>
+			<div class="col-6">
+				<p>
+					{{ product.description }}
+				</p>
+				<p>
+					Catégorie :
+					{{ product.categories.name }}
+				</p>
+				<p>Prix :
+					{{ product.price }}
+					€</p>
+				{% if product.stock > 0  %}
+
+					{# on créé un formulaire pour ajouter au panier avec possobilité de choisir la quantité #}
+
+					<form action="#" method="post">
+						<label for="quantity">Quantité</label>
+						<select name="quantity" id="quantity">
+							{% for i in 1..product.stock %}
+								<option value="{{ i }}">{{ i }}</option>
+							{% endfor %}
+						</select>
+						<button type="submit" class="btn btn-success">Ajouter au panier</button>
+					{% else %}
+						<p class="text-danger">Temmporairement en rupture de stock</p>
+						<a href="#" class></a>
+
+					{% endif %}
+
+					<p>
+						Référence : {{ product.id }}
+					</p>
+
+				</div>
+			</section>
+		</main>
+
+	{% endblock %}

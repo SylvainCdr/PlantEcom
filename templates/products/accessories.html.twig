@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Liste du Matériel & Accessoires
+{% endblock %}
+
+{% block body %}
+
+	<main class="container">
+		<section class="row">
+
+			<h1>Liste du Matériel & Accessoires
+			</h1>
+
+
+			{% for category in categories %}
+				{% if category.parent is not null and category.parent.slug == 'materiel-and-accessoires' %}
+					<div class="col-3">
+						<div class="card">
+							<div class="card-body">
+								<h3 class="card-title">
+									{{ category.name }}
+								</h3>
+								{% if category.products|length > 0 %}
+									{% set randomProductIndex = random(0, category.products|length - 1) %}
+									{% set randomProduct = category.products[randomProductIndex] %}
+									{% if randomProduct.getImages|length > 0 %}
+										{% set randomImage = randomProduct.getImages.first() %}
+										<img src="{{ asset('assets/uploads/products/mini/300x300-' ~ randomImage.name) }}" class="card-img-top" alt="{{ category.name }}">
+									{% endif %}
+								{% endif %}
+								<a class="btn btn-primary" href="{{ path('categories_list', { slug: category.slug }) }}" role="button">Voir les produits</a>
+							</div>
+						</div>
+						<a href="#"></a>
+					</div>
+				{% endif %}
+			{% endfor %}
+
+
+		</section>
+	</main>
+{% endblock %}

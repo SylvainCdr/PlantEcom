@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Liste des plantes
+{% endblock %}
+
+{% block body %}
+
+	<main class="container">
+		<section class="row">
+			<div class="col-12">
+				<h1>Découvrez toutes nos plantes</h1>
+			</div>
+
+
+			{% for plant in plants %}
+				<div class="col-3 mb-4">
+					<article class="card h-100">
+
+
+						{% if plant.getImages|length > 0 %}
+							{% set image = plant.getImages.first() %}
+							<img src="{{ asset('assets/uploads/products/mini/300x300-' ~ image.name) }}" alt="{{ plant.name }}" class="d-block w-100">
+						{% endif %}
+
+						<div class="card-body">
+							<h2 class="card-title">
+								{{plant.name}}
+							</h2>
+							<p class="card-text">
+								{{plant.price}}
+								€
+							</p>
+							<p class="card-text">
+								{{ plant.description|slice(0, 100) ~ '...'}}
+							</p>
+							<a href="{{ path('app_products_details', {slug: plant.slug}) }}" class="btn btn-primary">
+								Voir les détails</a>
+						</div>
+					</article>
+				</div>
+
+			{% endfor %}
+
+
+		</section>
+	</main>
+{% endblock %}

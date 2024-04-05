@@ -1,17 +1,59 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Accueil
+			{% endblock %}
+			- PlantEcom
+		</title>
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
 
-        {% block javascripts %}
-{% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+		{# On ajoute la balise meta car symfony ne l'intègre pas#}
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1.0">
+
+		{# Feuilles de styles #}
+		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}"> 
+		{% block stylesheets %}{% endblock %}
+		<link
+		rel="stylesheet" href="{{ asset('assets/css/style.css') }}" >
+
+		{# Fichiers Js #}
+		<script src="{{ asset ('assets/js/bootstrap.bundle.min.js') }}" defer></script>
+
+		{% block javascripts %}{% endblock %}
+		<script src="{{ asset ('assets/js/scripts.js') }}" defer></script>
+	</head>
+
+	<body>
+		{# Import du partial nav.html.twig #}
+		{% include "partials/nav.html.twig" %}
+
+
+{# Si l'utilisateur est connecté et que son compte n'est pas activé, on affiche un message #}
+		{% if app.user and app.user.isVerified == false %}
+			<div class="alert alert-warning alert-dismissible" role="alert">
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				<div class="alert-message">
+					<strong>Votre compte n'est pas activé</strong>, <a href="{{ path('resend_verif') }}"> renvoyez le lien d'activation </a>
+				</div>
+			</div>
+
+		{% endif %}
+
+
+		{# Import du partial flash.html.twig #}
+		{% include "partials/flash.html.twig" %}
+
+
+		{% block body %}{% endblock %}
+
+
+		{# Import du partial footer.html.twig #}
+		{% include "partials/footer.html.twig" %}
+
+
+	</body>
 </html>

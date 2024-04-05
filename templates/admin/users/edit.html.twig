@@ -1,0 +1,16 @@
+{% extends base.html.twig %}
+
+{% block title %}Administration {% endblock %}
+
+{% block body %}
+
+<h1>Modifier les informations utilisateurs</h1>
+    
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Modifier" />
+    {{ form_end(form) }}
+
+
+
+{% endblock %}
